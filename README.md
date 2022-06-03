@@ -11,3 +11,16 @@ bokeh serve --enable-xsrf-cookies --auth-module=auth.py user_1 user_2 user_3
 ### Once you login you will be redirected to the route of each user. For example if login with user_1 you will be redirected to /user_1. 
 
 ### That part is working as expected however I would like to keep users restricted to his own route. 
+
+
+First build the image:
+
+```bash
+docker build -t bokeh-experiment .
+```
+
+and then run it with:
+
+```bash
+docker run -p 5006:2000 bokeh-experiment
+```
