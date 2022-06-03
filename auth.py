@@ -1,6 +1,7 @@
+from distutils.log import debug
 import tornado
 from tornado.web import RequestHandler
-import functools
+# import functools
 
 # could also define get_login_url function (but must give up LoginHandler)
 login_url = "/login"
@@ -48,8 +49,9 @@ class YourDashboardHandler(RequestHandler):
     def get(self, *arg, **kwargs):
         user_from_URL = kwargs["user_id"]
         user_from_cookie = self.get_cookie("user", "")
+        print(user_from_cookie)
         if user_from_URL != user_from_cookie:
-            self.redirect(r"^/(?P<user_id>\w+)$")
+            self.redirect(f"/{user_from_cookie}")
 
 # optional logout_url, available as curdoc().session_context.logout_url
 logout_url = "/logout"
@@ -64,4 +66,4 @@ if __name__ == "__main__":
     application = tornado.web.Application([
         (r"/login", LoginHandler),
         (r"^/(?P<user_id>\w+)$", YourDashboardHandler)
-    ], cookie_secret="61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=")
+    ], cookie_secret="61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=", debug=True)
